@@ -1,0 +1,19 @@
+{
+  "name": "neon-highway",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "An endless synthwave drive you play like an instrument.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "0.170.0",
+    "tone": "15.1.22"
+  },
+  "devDependencies": {
+    "vite": "6.4.4"
+  }
+}

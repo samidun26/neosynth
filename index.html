@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#05000f" />
+    <title>Neon Highway</title>
+    <meta name="description" content="An endless synthwave drive you play like an instrument. Hit the keys, light up the road, record and share your jam." />
+    <meta property="og:title" content="Neon Highway" />
+    <meta property="og:description" content="An endless synthwave drive you play like an instrument." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Mr+Dafoe&family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <canvas id="scene" aria-hidden="true"></canvas>
+
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z" fill="currentColor" stroke="none" /></symbol>
+        <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1" fill="currentColor" stroke="none" /><rect x="14" y="4" width="4" height="16" rx="1" fill="currentColor" stroke="none" /></symbol>
+        <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="1.2" fill="currentColor" /><circle cx="17.5" cy="10.5" r="1.2" fill="currentColor" /><circle cx="8.5" cy="7.5" r="1.2" fill="currentColor" /><circle cx="6.5" cy="12.5" r="1.2" fill="currentColor" /><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C21.97 6.01 17.46 2 12 2z" /></symbol>
+        <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6" /></symbol>
+        <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></symbol>
+        <symbol id="i-rec" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none" /></symbol>
+        <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" stroke="none" /></symbol>
+        <symbol id="i-vj" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3" /><path d="M10 9.5v5l4.5-2.5z" fill="currentColor" stroke="none" /></symbol>
+        <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01" /></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" /></symbol>
+        <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></symbol>
+        <symbol id="i-loop" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4M3 11v-1a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v1a4 4 0 0 1-4 4H3" /></symbol>
+      </defs>
+    </svg>
+
+    <!-- Intro -->
+    <section id="intro" class="intro" aria-labelledby="intro-title">
+      <div class="intro__inner">
+        <p class="eyebrow">A playable synthwave drive</p>
+        <h1 id="intro-title" class="logo">
+          <span class="logo__neon" data-text="NEON">NEON</span>
+          <span class="logo__script">Highway</span>
+        </h1>
+        <p class="intro__lede">Hit the keys, light up the road. Every note lands in key, so you can't play a wrong one.</p>
+        <div id="shared-badge" class="shared-badge" hidden></div>
+        <button id="start" class="btn-start" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-play" /></svg>
+          <span>Start the engine</span>
+        </button>
+        <p class="intro__hint">Headphones on &middot; Sound up</p>
+        <ul class="intro__how" aria-label="How to play">
+          <li><span class="how__k"><kbd>A</kbd>&hairsp;&ndash;&hairsp;<kbd>K</kbd></span>Play notes</li>
+          <li><span class="how__k">Tap</span>The road or the pads</li>
+          <li><span class="how__k">Swipe</span>Across pads to glide</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- HUD top -->
+    <header class="hud hud-top">
+      <div class="brand-mini" aria-hidden="true">NEON<span>Highway</span></div>
+      <div class="chord" title="Current chord">
+        <span id="chord-name" class="chord__name">Am</span>
+        <span class="chord__bars" id="chord-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </div>
+      <nav class="toolbar" aria-label="Controls">
+        <button class="tbtn" id="btn-play" type="button" aria-label="Pause" data-tip="Pause · Space">
+          <svg class="icon"><use href="#i-pause" /></svg>
+        </button>
+        <button class="tbtn" id="btn-theme" type="button" aria-label="Next theme" data-tip="Theme · T">
+          <svg class="icon"><use href="#i-palette" /></svg>
+        </button>
+        <button class="tbtn" id="btn-studio" type="button" aria-label="Open studio" aria-controls="studio" aria-expanded="false" data-tip="Studio · M">
+          <svg class="icon"><use href="#i-sliders" /></svg>
+        </button>
+        <button class="tbtn" id="btn-share" type="button" aria-label="Copy share link" data-tip="Share jam">
+          <svg class="icon"><use href="#i-link" /></svg>
+        </button>
+        <button class="tbtn tbtn--rec" id="btn-rec" type="button" aria-label="Record video" aria-pressed="false" data-tip="Record · R">
+          <svg class="icon"><use href="#i-rec" /></svg>
+          <span class="rec-time" id="rec-time" hidden>0:00</span>
+        </button>
+        <button class="tbtn" id="btn-vj" type="button" aria-label="Enter VJ mode" data-tip="VJ mode · V">
+          <svg class="icon"><use href="#i-vj" /></svg>
+        </button>
+        <button class="tbtn tbtn--help" id="btn-help" type="button" aria-label="Keyboard shortcuts" data-tip="Shortcuts · ?">
+          <svg class="icon"><use href="#i-help" /></svg>
+        </button>
+      </nav>
+    </header>
+
+    <!-- HUD bottom -->
+    <footer class="hud hud-bottom">
+      <div class="looper">
+        <button class="pill" id="btn-loop" type="button" aria-pressed="false" data-tip="Loop record · L">
+          <span class="pill__dot" aria-hidden="true"></span>
+          <span id="loop-label">Loop</span>
+        </button>
+        <div class="roll" aria-hidden="true">
+          <canvas id="roll"></canvas>
+        </div>
+        <button class="pill pill--icon" id="btn-clear" type="button" aria-label="Clear loop" data-tip="Clear loop · Backspace">
+          <svg class="icon"><use href="#i-trash" /></svg>
+        </button>
+      </div>
+      <div class="drive" aria-hidden="true"><span class="drive__label">Drive</span><div class="drive__track"><i id="drive-fill"></i></div></div>
+      <div class="pads" id="pads" role="group" aria-label="Note pads"></div>
+    </footer>
+
+    <!-- Studio panel -->
+    <aside id="studio" class="studio" aria-label="Studio" hidden>
+      <div class="studio__head">
+        <h2>Studio</h2>
+        <button class="tbtn" id="studio-close" type="button" aria-label="Close studio"><svg class="icon"><use href="#i-x" /></svg></button>
+      </div>
+      <div class="studio__body">
+        <section class="sect">
+          <h3>Vibe</h3>
+          <div class="swatches" id="swatches" role="radiogroup" aria-label="Theme"></div>
+        </section>
+        <section class="sect">
+          <h3>Progression</h3>
+          <div class="seg" id="progs" role="radiogroup" aria-label="Chord progression"></div>
+        </section>
+        <section class="sect">
+          <h3>Key</h3>
+          <div class="keys" id="keys" role="radiogroup" aria-label="Musical key"></div>
+        </section>
+        <section class="sect">
+          <h3 class="sect__row"><label for="tempo">Tempo</label><output id="tempo-out" for="tempo">100 BPM</output></h3>
+          <input type="range" id="tempo" min="70" max="150" step="1" value="100" />
+        </section>
+        <section class="sect">
+          <h3>Layers</h3>
+          <div class="layers" id="layers"></div>
+        </section>
+        <section class="sect sect--actions">
+          <button class="btn-ghost" id="studio-share" type="button"><svg class="icon"><use href="#i-link" /></svg>Copy jam link</button>
+          <button class="btn-ghost" id="studio-rec" type="button"><svg class="icon"><use href="#i-rec" /></svg>Record video</button>
+        </section>
+      </div>
+    </aside>
+
+    <!-- Help -->
+    <div id="help" class="modal" role="dialog" aria-modal="true" aria-labelledby="help-title" hidden>
+      <div class="modal__card">
+        <div class="studio__head">
+          <h2 id="help-title">Controls</h2>
+          <button class="tbtn" id="help-close" type="button" aria-label="Close"><svg class="icon"><use href="#i-x" /></svg></button>
+        </div>
+        <dl class="shortcuts">
+          <div><dt><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><kbd>F</kbd><kbd>G</kbd><kbd>H</kbd><kbd>J</kbd><kbd>K</kbd></dt><dd>Play the 8 lanes</dd></div>
+          <div><dt><kbd>Space</kbd></dt><dd>Pause / resume</dd></div>
+          <div><dt><kbd>L</kbd></dt><dd>Loop record on / off</dd></div>
+          <div><dt><kbd>⌫</kbd></dt><dd>Clear loop</dd></div>
+          <div><dt><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd></dt><dd>Drums · Bass · Arp · Pads</dd></div>
+          <div><dt><kbd>T</kbd></dt><dd>Next theme</dd></div>
+          <div><dt><kbd>↑</kbd><kbd>↓</kbd></dt><dd>Tempo</dd></div>
+          <div><dt><kbd>←</kbd><kbd>→</kbd></dt><dd>Change key</dd></div>
+          <div><dt><kbd>P</kbd></dt><dd>Next progression</dd></div>
+          <div><dt><kbd>M</kbd></dt><dd>Studio</dd></div>
+          <div><dt><kbd>R</kbd></dt><dd>Record video</dd></div>
+          <div><dt><kbd>V</kbd></dt><dd>VJ mode (auto-play visualizer)</dd></div>
+        </dl>
+        <p class="help__tip">On touch: tap the road or the pads, and slide across pads to glide between notes.</p>
+      </div>
+    </div>
+
+    <div class="vj-hint" id="vj-hint">VJ mode &middot; tap or press <kbd>Esc</kbd> to exit</div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
