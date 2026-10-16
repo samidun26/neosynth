@@ -2,7 +2,35 @@
 
 An endless synthwave drive you play like an instrument. Hit the keys, light up the road. Every note is locked to a minor-pentatonic scale over the backing track, so nothing you play sounds wrong.
 
-## Play
+**[▶ Play it live](https://neon-highway-ashy.vercel.app)**
+
+![Neon Highway gameplay: a wireframe car on a neon grid highway, heading toward a striped synthwave sun](docs/screenshots/hero.jpg)
+
+## Features
+
+- **Playable world:** every note steers the car into its lane, fires a light streak at the sun, throws sparks and ripples the grid. The kick drum pulses the whole road.
+- **Always in key:** drums, octave bass, arp and pads run on Tone.js, and the 8 lead lanes map to a minor-pentatonic scale.
+- **Loop recorder:** capture a 4-bar pattern and keep jamming over it.
+- **Six themes:** Outrun, Miami Sunset, Cyber Grid, Vaporwave, Blood Moon and Glacier.
+- **Share a jam:** your theme, key, tempo, progression, layers and loop are packed into the URL.
+- **Record:** captures the canvas plus audio to MP4 (or WebM, depending on the browser).
+- **VJ mode:** fullscreen, auto-composed melodies and cinematic camera cuts.
+
+## Screenshots
+
+![All six visual themes side by side](docs/screenshots/themes.jpg)
+
+| Title screen | Studio panel |
+| --- | --- |
+| ![Title screen with the chrome "NEON Highway" logo](docs/screenshots/intro.jpg) | ![Studio panel with themes, progression, key and tempo controls](docs/screenshots/studio.jpg) |
+
+<p align="center">
+  <img src="docs/screenshots/mobile.jpg" alt="Mobile layout with touch pads" width="300" />
+  <br />
+  <sub>Touch-first on mobile: tap the pads or the road, and slide across pads to glide.</sub>
+</p>
+
+## Controls
 
 | Input | Action |
 | --- | --- |
@@ -13,12 +41,6 @@ An endless synthwave drive you play like an instrument. Hit the keys, light up t
 | `T` · `P` | Next theme · next chord progression |
 | `↑ ↓` · `← →` | Tempo · key |
 | `M` · `R` · `V` · `?` | Studio · record video · VJ mode · shortcuts |
-
-**Share:** the link button encodes theme, key, tempo, progression, layers and your 4-bar loop into the URL (`#jam=…`), so friends hear exactly what you made.
-
-**Record:** captures the canvas plus audio to MP4 (or WebM, depending on the browser) and downloads it.
-
-**VJ mode:** hides the UI, goes fullscreen, auto-composes melodies and cuts between camera angles.
 
 ## Stack
 
